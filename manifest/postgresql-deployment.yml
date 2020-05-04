@@ -1,35 +1,30 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redmine
+  name: postgresql
   labels:
-    app: redmine
+    app: postgresql
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: redmine
+      app: postgresql
   template:
     metadata:
       labels:
-        app: redmine
+        app: postgresql
     spec:
       containers:
-        - name: redmine
-          image: redmine:4.1.1
+        - name: postgresql
+          image: postgres:12.2
           ports:
-            - containerPort: 3000
+          - containerPort: 5432
           env:
-            - name: REDMINE_DB_POSTGRES
-              value: postgresql
-            - name: REDMINE_DB_USERNAME
+            - name: POSTGRES_USER
               value: redmine
-            - name: REDMINE_DB_PASSWORD
+            - name: POSTGRES_PASSWORD
               value: secret
           resources:
             limits:
               cpu: 500m
               memory: 256Mi
-
-            
-      
